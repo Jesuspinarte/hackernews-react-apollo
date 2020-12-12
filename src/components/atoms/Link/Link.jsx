@@ -3,8 +3,10 @@ import React from 'react';
 
 // Intertal imports
 
-export default ({ link }) => (
+const Link = ({ link }) => (
   <div>
     {link.description} ({link.url})
   </div>
 );
+
+export default Link;
