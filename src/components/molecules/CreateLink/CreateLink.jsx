@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { useMutation } from '@apollo/client';
+
 import { CREATE_LINK_MUTATION } from '../../_utils/graphql/Mutations.schema';
 
 const CreateLink = () => {
+  const history = useHistory();
   const [formState, setFormState] = useState({
     description: '',
     url: '',
@@ -13,6 +16,7 @@ const CreateLink = () => {
       description: formState.description,
       url: formState.url,
     },
+    onCompleted: () => history.push('/'),
   });
 
   return (
@@ -21,7 +25,6 @@ const CreateLink = () => {
         onSubmit={e => {
           e.preventDefault();
           onSubmitForm(useMutation, formState);
-          alert('Submit clicked!');
         }}
       >
         <div className="flex flex-column mt3">
