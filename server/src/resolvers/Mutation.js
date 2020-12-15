@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const { APP_SECRET } = require('../utils');
 
 async function post(parent, args, context, info) {
-  // const { userId } = context;
-  const userId = 3; // Hardcoded to post via GraphiQL
+  const { userId } = context;
+  // const userId = 3; // Hardcoded to post via GraphiQL
 
   const newLink = await context.prisma.link.create({
     data: {
