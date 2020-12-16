@@ -3,7 +3,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 // Intertal imports
-import CreateLink from './molecules/CreateLink/CreateLink';
+import CreateLink from './molecules/create-link/CreateLink';
 import LinkList from './molecules/link-list/LinkList';
 import Search from './molecules/search/Search';
 import Header from './organisms/header/Header';
