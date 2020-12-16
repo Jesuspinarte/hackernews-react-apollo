@@ -3,7 +3,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 
 // Intertal imports
-import Link from '../../atoms/Link/Link';
+import Link from '../../atoms/link/Link';
 import { FEED_QUERY } from '../../_utils/graphql/Queries.schema';
 
 const LinkList = () => {
