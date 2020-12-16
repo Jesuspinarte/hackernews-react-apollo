@@ -1,3 +1,5 @@
+import { LINKS_PER_PAGE } from "./constants/Common.constants";
+
 const timeDifference = (current, previous) => {
   const milliSecondsPerMinute = 60 * 1000;
   const milliSecondsPerHour = milliSecondsPerMinute * 60;
@@ -24,6 +26,13 @@ const timeDifference = (current, previous) => {
   } else {
     return Math.round(elapsed / milliSecondsPerYear) + ' years ago';
   }
+};
+
+export const getQueryVariables = (isNewPage, page) => {
+  const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+  const take = isNewPage ? LINKS_PER_PAGE : 100;
+  const orderBy = { createdAt: 'desc' };
+  return { take, skip, orderBy };
 };
 
 export function timeDifferenceForDate(date) {

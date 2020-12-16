@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 
 import { CREATE_LINK_MUTATION } from '../../_utils/graphql/Mutations.schema';
 import { FEED_QUERY } from '../../_utils/graphql/Queries.schema';
-import { LINKS_PER_PAGE } from '../../_utils/constants/Auth.constants';
+import { LINKS_PER_PAGE } from '../../_utils/constants/Common.constants';
 
 const CreateLink = () => {
   const history = useHistory();
