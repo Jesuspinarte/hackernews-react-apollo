@@ -1,4 +1,4 @@
-import { LINKS_PER_PAGE } from "./constants/Common.constants";
+import { LINKS_PER_PAGE } from './constants/Common.constants';
 
 const timeDifference = (current, previous) => {
   const milliSecondsPerMinute = 60 * 1000;
@@ -26,6 +26,15 @@ const timeDifference = (current, previous) => {
   } else {
     return Math.round(elapsed / milliSecondsPerYear) + ' years ago';
   }
+};
+
+export const getLinksToRender = (isNewPage, data) => {
+  if (isNewPage) {
+    return data.feed.links;
+  }
+  const rankedLinks = data.feed.links.slice();
+  rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length);
+  return rankedLinks;
 };
 
 export const getQueryVariables = (isNewPage, page) => {

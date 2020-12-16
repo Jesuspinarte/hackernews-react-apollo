@@ -7,8 +7,11 @@ import { useQuery } from '@apollo/client';
 import Link from '../../atoms/link/Link';
 import { FEED_QUERY } from '../../_utils/graphql/Queries.schema';
 import { LINKS_PER_PAGE } from '../../_utils/constants/Common.constants';
-import { getQueryVariables } from '../../_utils/common.utils';
-import { NEW_LINKS_SUBSCRIPTION, NEW_VOTES_SUBSCRIPTION } from '../../_utils/graphql/Subscriptions.schema';
+import { getLinksToRender, getQueryVariables } from '../../_utils/common.utils';
+import {
+  NEW_LINKS_SUBSCRIPTION,
+  NEW_VOTES_SUBSCRIPTION,
+} from '../../_utils/graphql/Subscriptions.schema';
 
 const LinkList = () => {
   const history = useHistory();
@@ -40,19 +43,46 @@ const LinkList = () => {
   });
 
   subscribeToMore({
-    document: NEW_VOTES_SUBSCRIPTION
+    document: NEW_VOTES_SUBSCRIPTION,
   });
 
   return (
-    <div>
+    <>
+      {loading && <p>Loading...</p>}
+      {error && <pre>{JSON.stringify(error, null, 2)}</pre>}
       {data && (
         <>
-          {data.feed.links.map((link, index) => (
-            <Link key={link.id} link={link} index={index} />
+          {getLinksToRender(isNewPage, data).map((link, index) => (
+            <Link key={link.id} link={link} index={index + pageIndex} />
           ))}
+          {isNewPage && (
+            <div className="flex ml4 mv3 gray">
+              <div
+                className="pointer mr2"
+                onClick={() => {
+                  if (page > 1) {
+                    history.push(`/new/${page - 1}`);
+                  }
+                }}
+              >
+                Previous
+              </div>
+              <div
+                className="pointer"
+                onClick={() => {
+                  if (page <= data.feed.count / LINKS_PER_PAGE) {
+                    const nextPage = page + 1;
+                    history.push(`/new/${nextPage}`);
+                  }
+                }}
+              >
+                Next
+              </div>
+            </div>
+          )}
         </>
       )}
-    </div>
+    </>
   );
 };
 
